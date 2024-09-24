@@ -5,11 +5,10 @@ import BookItem from "@/components/book-item";
 import { InferGetStaticPropsType } from "next";
 import fetchBooks from "@/lib/fetch-books";
 import fetchRandomBooks from "@/lib/fetch-random-books";
+import Head from "next/head";
 
 export const getStaticProps = async() => {
   // 컴포넌트보다 먼저 실행되어서, 컴포넌트에 필요한 데이터 불러오는 함수
-
-    console.log("인덱스 페이지")
 
   const [allBooks, recBooks] = await Promise.all([
     fetchBooks(),
@@ -21,12 +20,20 @@ export const getStaticProps = async() => {
       allBooks,
       recBooks,
     },
+
   };
 };
 
 export default function Home({allBooks,recBooks}: InferGetStaticPropsType<typeof getStaticProps>) {
 
   return (
+    <>
+    <Head>
+      <title>팽둔북스</title>
+      <meta property="og:image" content="/thumbnail.jpg" />
+      <meta property="og:title" content="팽둔북스" />
+      <meta property="og:description" content="팽둔 북스에 등록된 도서들을 만나보거라"/>
+    </Head>
     <div className={style.container}>
       <section>
         <h3>지금 추천하는 도서</h3>
@@ -37,6 +44,7 @@ export default function Home({allBooks,recBooks}: InferGetStaticPropsType<typeof
         {allBooks.map((book)=> (<BookItem key={book.id} {...book}/>))}
       </section>
   </div>
+  </>
   );
 }
 
