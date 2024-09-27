@@ -14,7 +14,7 @@ async function Footer() {
   const bookCount = books.length
 
   return <footer>
-    <div> 제작 @pangdoon</div>
+    <div> made by @pangdoon</div>
     <div> {bookCount}개의 도서가 등록되어 있습니다.</div>
     </footer>
 
